@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <title>Save new restaurants for future trial!
+
+    </title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1>Medicine List</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+      <div>
+        <form action="/saveMedicine" method="POST">
+          <input type="text" name="name" placeholder="What Medicine?">
+          <select name="freqOfMedicine" id="">
+            <option value="1">Once</option>
+            <option value="2">Twice</option>
+            <option value="3">Thrice</option>
+          </select>
+            <button type="submit">Submit</button>
+          </form>
+          
+        <ul>
+          <span>Medicine List</span>
+          <% for(var i=0; i<medicineList.length; i++) {%>
+            <li class="makeCenter">
+              <span class="medicineName"><%=medicineList[i].name %></span>
+              <span class="freqOfMedicine"><%=medicineList[i].type%> times per week</span>
+            </li>
+            <% } %>
+        </ul></form>  
+      </div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
