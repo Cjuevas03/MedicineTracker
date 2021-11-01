@@ -1,47 +1,21 @@
-var thumbUp = document.getElementsByClassName("fa-thumbs-up");
-var thumbDown = document.getElementsByClassName("fa-thumbs-down");
+var taken = document.getElementsByClassName("fa fa-check-square");
 var trash = document.getElementsByClassName("fa-trash");
+let freqOfMedicine = document.getElementsByClassName('taken')
 
-Array.from(thumbUp).forEach(function(element) {
-      element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
-        const msg = this.parentNode.parentNode.childNodes[3].innerText
-        const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
-        fetch('messages', {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            'name': name,
-            'msg': msg,
-            'thumbUp':thumbUp
-          })
-        })
-        .then(response => {
-          if (response.ok) return response.json()
-        })
-        .then(data => {
-          console.log(data)
-          window.location.reload(true)
-        })
-      });
-});
 
-Array.from(thumbDown).forEach(function(element) {
+Array.from(taken).forEach(function(element) {
   element.addEventListener('click', function(){
-    const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
-    const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
-    fetch('messages', {
+    let postId = this.dataset.id
+    // const name = this.parentNode.parentNode.childNodes[1].innerText
+    let count = this.dataset.count
+    // const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
+    fetch('medTaken', {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        'name': name,
-        'msg': msg,
-        'thumbUp':(thumbUp-1)-1
+        'id': postId,
+        'count': count
       })
-    })
-    .then(response => {
-      if (response.ok) return response.json()
     })
     .then(data => {
       console.log(data)
@@ -51,24 +25,23 @@ Array.from(thumbDown).forEach(function(element) {
 });
 
 Array.from(trash).forEach(function(element) {
-  element.addEventListener('click', function(){
-    console.log('i work out', this.dataset.id);
-    let postId = this.dataset.id
-    // let name = this.dataset.id
-    // let freq = this.dataset.id
-    // const name = this.parentNode.parentNode.childNodes[1].innerText
-    // const msg = this.parentNode.parentNode.childNodes[3].innerText
-    fetch('indaTrash', {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'id': postId
-      })
-    }).then(function (response) {
-      window.location.reload()
-    })
-  });
+      element.addEventListener('click', function(){
+        let postId = this.dataset.id
+        // let name = this.dataset.id
+        // let freq = this.dataset.id
+        const name = this.parentNode.parentNode.childNodes[1].innerText
+        // const msg = this.parentNode.parentNode.childNodes[3].innerText
+        fetch('indaTrash', {
+          method: 'delete',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'id': postId
+          })
+        }).then(function (response) {
+          window.location.reload()
+        })
+      });
 });
 

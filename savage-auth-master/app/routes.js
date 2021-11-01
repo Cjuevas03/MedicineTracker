@@ -18,7 +18,7 @@ module.exports = function(app, passport, db) {
         const userId = req.user._id
        db.collection('medicine').find({ userId: userId}).sort({_id: -1}).toArray((err, result) => {
           if (err) return console.log(err)
-          console.log('this is the result for profile', result);
+
           res.render('profile.ejs', {
             user : req.user,
             medicineList: result //restaraunt must change to medicine
@@ -26,25 +26,43 @@ module.exports = function(app, passport, db) {
         })
     });
   
-      app.post('/saveMedicine', function(req, res) {
+      app.post('/saveMedicine', isLoggedIn ,function(req, res) {
         const userId = req.user._id
         const medicineName = req.body.name //restaraunt must change to medicine
-        const freqOfMedicine = req.body.freqOfMedicine
+        const freqOfMedicine = Number(req.body.freqOfMedicine)
+        console.log(freqOfMedicine);
         db.collection('medicine').save({ userId: userId, name: medicineName, type: freqOfMedicine }, (err, result) => {
           if (err) return console.log(err)
           console.log('saved to database')
           res.redirect('/profile')
         })
       })
-     
+      
+      app.put('/medTaken', (req, res) => {
+        let postId = req.body.id
+        let count = req.body.count
+        console.log('brin', postId , count);
+        db.collection('medicine')
+        .findOneAndUpdate({_id: ObjectId(postId) }, {
+          $set: {
+            type: req.body.count - 1
+          }
+        }, {
+          sort: {_id: -1},
+          upsert: false
+        }, (err, result) => {
+          if (err) return res.send(err)
+          res.send(result)
+        })
+      })
       app.delete('/indaTrash', (req, res) => {
-        console.log('Delete', req.body.id);
         let postId = req.body.id;
         db.collection('medicine').findOneAndDelete({_id: ObjectId(postId)}, (err, result) => {
           if (err) return res.send(500, err)
           res.send('Message deleted!')
         })
       })
+  
   
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================

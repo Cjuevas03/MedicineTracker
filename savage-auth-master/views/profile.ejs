@@ -37,6 +37,7 @@
               <span class="medicineName"><%=medicineList[i].name %></span>
               <span class="freqOfMedicine"><%=medicineList[i].type%> times per week</span>
               <span><i data-id="<%=medicineList[i]._id %>" class="fa fa-trash" aria-hidden=""></i></span>
+              <span><button class="taken" title=""><i data-count="<%=medicineList[i].type%>" data-id="<%=medicineList[i]._id %>" class="fa fa-check-square"></i></button></span>
             </li>
             <% } %>
         </ul></form>  
