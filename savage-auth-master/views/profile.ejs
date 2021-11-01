@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
 <head>
-    <title>Save new restaurants for future trial!
+    <title>Medicine
 
     </title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/58eb5e6d41.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
@@ -34,6 +36,7 @@
             <li class="makeCenter">
               <span class="medicineName"><%=medicineList[i].name %></span>
               <span class="freqOfMedicine"><%=medicineList[i].type%> times per week</span>
+              <span><i data-id="<%=medicineList[i]._id %>" class="fa fa-trash" aria-hidden=""></i></span>
             </li>
             <% } %>
         </ul></form>  

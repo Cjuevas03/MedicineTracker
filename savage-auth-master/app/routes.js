@@ -1,3 +1,4 @@
+var ObjectId = require('mongodb').ObjectID;
 module.exports = function(app, passport, db) {
 
   // normal routes ===============================================================
@@ -35,7 +36,15 @@ module.exports = function(app, passport, db) {
           res.redirect('/profile')
         })
       })
-  
+     
+      app.delete('/indaTrash', (req, res) => {
+        console.log('Delete', req.body.id);
+        let postId = req.body.id;
+        db.collection('medicine').findOneAndDelete({_id: ObjectId(postId)}, (err, result) => {
+          if (err) return res.send(500, err)
+          res.send('Message deleted!')
+        })
+      })
   
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================

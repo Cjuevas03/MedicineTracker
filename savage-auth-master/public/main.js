@@ -51,20 +51,24 @@ Array.from(thumbDown).forEach(function(element) {
 });
 
 Array.from(trash).forEach(function(element) {
-      element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
-        const msg = this.parentNode.parentNode.childNodes[3].innerText
-        fetch('messages', {
-          method: 'delete',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            'name': name,
-            'msg': msg
-          })
-        }).then(function (response) {
-          window.location.reload()
-        })
-      });
+  element.addEventListener('click', function(){
+    console.log('i work out', this.dataset.id);
+    let postId = this.dataset.id
+    // let name = this.dataset.id
+    // let freq = this.dataset.id
+    // const name = this.parentNode.parentNode.childNodes[1].innerText
+    // const msg = this.parentNode.parentNode.childNodes[3].innerText
+    fetch('indaTrash', {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'id': postId
+      })
+    }).then(function (response) {
+      window.location.reload()
+    })
+  });
 });
+
